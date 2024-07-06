@@ -57,17 +57,14 @@ class TIFFWrapper:
 
         # Interpolate the values on the plane
         values = interpolator(points).reshape((len(v), len(u)))
-        print(values)
+        # print(values)
         
         return xx, yy, zz, values
 
 
-    def graph(self, downsample_plot_factor=70):
+    def graph(self, downsample_plot_factor=1):
         X, Y, Z = np.meshgrid(self.x[::downsample_plot_factor], self.y[::downsample_plot_factor], self.z[::downsample_plot_factor], indexing='ij')
         flatten = self.data[::downsample_plot_factor, ::downsample_plot_factor, ::downsample_plot_factor].flatten()
 
-        return X, Y, Z, flatten
-        
-
+        return X, Y, Z, flatten        
     
-

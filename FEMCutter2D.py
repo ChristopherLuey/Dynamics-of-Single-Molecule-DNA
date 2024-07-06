@@ -5,15 +5,16 @@ import tifffile
 from matplotlib.widgets import Slider
 
 
-tiff = TIFFWrapper('data/1300kDa uncropped 22V for 30s.tif')
+# tiff = TIFFWrapper('data/1300kDa uncropped 22V for 30s.tif')
+tiff = TIFFWrapper('syn_data/syn_larger_particles_radial.tif')
 interpolator = tiff.interpolator()
 
 ################ Initial values #################
 z_frame_0 = tiff.z[0]
 _height = 0 
-_width = 30
+_width = 0
 point = np.array([_width, _height, z_frame_0]) # point plane starts
-angle_y = np.pi / 10  # angle of cut
+angle_y = np.pi / 4  # angle of cut
 
 ################ Plotting ####################
 fig = plt.figure(figsize=(12, 8))
@@ -26,7 +27,7 @@ surf = None
 
 # Cross-section view
 ax2 = fig.add_subplot(122)
-img = ax2.imshow(np.zeros((tiff.height, tiff.width)), cmap='hot')
+img = ax2.imshow(np.zeros((tiff.height, tiff.width)), aspect='auto', cmap='hot')
 
 # Slider for _height value
 ax_angle_slider = plt.axes([0.25, 0.02, 0.65, 0.03])
@@ -45,8 +46,9 @@ def update(val):
     if surf:
         surf.remove()
     surf = ax1.plot_surface(uu, vv, zz, color='red', alpha=0.5)
-
-    img.set_data(values)
+    img = ax2.imshow(values, aspect="auto", cmap="hot")
+    img.set_clim(vmin=values.min(), vmax=values.max())  # Update color scale limits
+    plt.draw()
     ax2.set_title(f"Cross-Section at angle {angle_y}")
     ax2.set_xlabel('Width (pixels)')
     ax2.set_ylabel('Height (pixels)')
