@@ -35,16 +35,26 @@ if __name__ == "__main__":
     frames = 1000
     height = 500
     width = 100
+    # Particles: [((y_0, x_0), frame_0, x_vel, particle_radius)]
     particles = [
-        ((0, 20), 0, 1, 5),
-       ((0,50), 20, 3, 8),
-       ((0,20), 30, 2, 3),
-        ((0,70), 80, 4, 2),
+        ((0, 20), 0, 3, 2),
+        ((0, 20), 100, 3, 5),
+        ((0, 60), 20, 3, 3),
+        ((0, 80), 400, 3.5, 3),
+        ((0, 70), 400, 2.5, 1),
+
+
+
+        # ((0, 50), 100, 3, 2),
+
+    #    ((0,50), 20, 3, 8),
+    #    ((0,20), 30, 2, 3),
+    #     ((0,70), 80, 4, 2),
 
     ]
 
     # Output file
-    output_file = 'syn_data/syn.tif'
+    output_file = 'syn_data/syn2.tif'
 
     # Generate TIFF
     generate_tiff((frames, height, width), particles, output_file)
